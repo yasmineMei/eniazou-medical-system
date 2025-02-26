@@ -1,28 +1,36 @@
-import * as React from "react"
+import * as React from "react";
 import {
   AudioWaveform,
-  BookOpen,
-  Bot,
+  Calendar,
   Command,
   Frame,
   GalleryVerticalEnd,
   Map,
   PieChart,
   Settings2,
-  SquareTerminal,
-} from "lucide-react"
+  UserPlus,
+  ClipboardList,
+  Stethoscope,
+  AlertTriangle,
+  Bed,
+  CreditCard,
+  X,
+  LayoutDashboard,
+  FileText,
+  Package,
+} from "lucide-react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
+import { NavMain } from "@/components/nav-main";
+import { NavProjects } from "@/components/nav-projects";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
+} from "@/components/ui/sidebar";
 
 // This is sample data.
 const data = {
@@ -50,9 +58,9 @@ const data = {
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Appointment",
       url: "#",
-      icon: SquareTerminal,
+      icon: Calendar,
       isActive: true,
       items: [
         {
@@ -70,9 +78,9 @@ const data = {
       ],
     },
     {
-      title: "Models",
+      title: "Patient Registration",
       url: "#",
-      icon: Bot,
+      icon: UserPlus,
       items: [
         {
           title: "Genesis",
@@ -89,9 +97,9 @@ const data = {
       ],
     },
     {
-      title: "Documentation",
+      title: "Gestion clinique",
       url: "#",
-      icon: BookOpen,
+      icon: ClipboardList,
       items: [
         {
           title: "Introduction",
@@ -107,6 +115,190 @@ const data = {
         },
         {
           title: "Changelog",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Clinical Management",
+      url: "#",
+      icon: Stethoscope,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Emergency",
+      url: "#",
+      icon: AlertTriangle,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "InPatient Management",
+      url: "#",
+      icon: Bed,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Billing and Collection",
+      url: "#",
+      icon: CreditCard,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Radiology",
+      url: "#",
+      icon: X,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "MIS Dashboard",
+      url: "#",
+      icon: LayoutDashboard,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "MIS Reports",
+      url: "#",
+      icon: FileText,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
+          url: "#",
+        },
+      ],
+    },
+    {
+      title: "Inventory",
+      url: "#",
+      icon: Package,
+      items: [
+        {
+          title: "General",
+          url: "#",
+        },
+        {
+          title: "Team",
+          url: "#",
+        },
+        {
+          title: "Billing",
+          url: "#",
+        },
+        {
+          title: "Limits",
           url: "#",
         },
       ],
@@ -152,7 +344,7 @@ const data = {
       icon: Map,
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -169,5 +361,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
