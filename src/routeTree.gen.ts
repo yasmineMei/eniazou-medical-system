@@ -11,18 +11,11 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as PatientImport } from './routes/patient'
 import { Route as HomeImport } from './routes/_home'
 import { Route as IndexImport } from './routes/index'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
 
 // Create/Update Routes
-
-const PatientRoute = PatientImport.update({
-  id: '/patient',
-  path: '/patient',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const HomeRoute = HomeImport.update({
   id: '/_home',
@@ -59,13 +52,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeImport
       parentRoute: typeof rootRoute
     }
-    '/patient': {
-      id: '/patient'
-      path: '/patient'
-      fullPath: '/patient'
-      preLoaderRoute: typeof PatientImport
-      parentRoute: typeof rootRoute
-    }
     '/_home/dashboard': {
       id: '/_home/dashboard'
       path: '/dashboard'
@@ -91,14 +77,12 @@ const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
-  '/patient': typeof PatientRoute
   '/dashboard': typeof HomeDashboardRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
-  '/patient': typeof PatientRoute
   '/dashboard': typeof HomeDashboardRoute
 }
 
@@ -106,29 +90,26 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_home': typeof HomeRouteWithChildren
-  '/patient': typeof PatientRoute
   '/_home/dashboard': typeof HomeDashboardRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/patient' | '/dashboard'
+  fullPaths: '/' | '' | '/dashboard'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/patient' | '/dashboard'
-  id: '__root__' | '/' | '/_home' | '/patient' | '/_home/dashboard'
+  to: '/' | '' | '/dashboard'
+  id: '__root__' | '/' | '/_home' | '/_home/dashboard'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRouteWithChildren
-  PatientRoute: typeof PatientRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRouteWithChildren,
-  PatientRoute: PatientRoute,
 }
 
 export const routeTree = rootRoute
@@ -142,8 +123,7 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_home",
-        "/patient"
+        "/_home"
       ]
     },
     "/": {
@@ -154,9 +134,6 @@ export const routeTree = rootRoute
       "children": [
         "/_home/dashboard"
       ]
-    },
-    "/patient": {
-      "filePath": "patient.tsx"
     },
     "/_home/dashboard": {
       "filePath": "_home/dashboard.tsx",
