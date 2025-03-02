@@ -1,29 +1,21 @@
+"use client";
+
 import * as React from "react";
 import {
   AudioWaveform,
-  Calendar,
+  BookOpen,
+  ChartNoAxesCombined,
   Command,
-  Frame,
   GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  UserPlus,
-  ClipboardList,
-  Stethoscope,
-  AlertTriangle,
-  Bed,
-  CreditCard,
-  X,
-  LayoutDashboard,
-  FileText,
-  Package,
+  ShieldPlus,
+  User2Icon,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
-import { NavProjects } from "@/components/nav-projects";
+//import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
-import { TeamSwitcher } from "@/components/team-switcher";
+import logo from "@/images/logo.png";
+
 import {
   Sidebar,
   SidebarContent,
@@ -31,6 +23,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
+//import { TeamSwitcher } from "./team-switcher";
 
 // This is sample data.
 const data = {
@@ -58,276 +51,28 @@ const data = {
   ],
   navMain: [
     {
-      title: "Appointment",
-      url: "#",
-      icon: Calendar,
+      title: "Tableau de bord",
+      url: "/dashboard",
+      icon: ChartNoAxesCombined,
       isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
     },
     {
-      title: "Patient Registration",
-      url: "#",
-      icon: UserPlus,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
+      title: "Patient",
+      url: "/patient",
+      icon: User2Icon,
     },
     {
-      title: "Gestion clinique",
-      url: "#",
-      icon: ClipboardList,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
+      title: "Personnel",
+      url: "/personnel",
+      icon: ShieldPlus,
     },
     {
-      title: "Clinical Management",
-      url: "#",
-      icon: Stethoscope,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Emergency",
-      url: "#",
-      icon: AlertTriangle,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "InPatient Management",
-      url: "#",
-      icon: Bed,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Billing and Collection",
-      url: "#",
-      icon: CreditCard,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Radiology",
-      url: "#",
-      icon: X,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "MIS Dashboard",
-      url: "#",
-      icon: LayoutDashboard,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "MIS Reports",
-      url: "#",
-      icon: FileText,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Inventory",
-      url: "#",
-      icon: Package,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
+      title: "Rapports",
+      url: "/report",
+      icon: BookOpen,
     },
   ],
-  projects: [
+  /* projects: [
     {
       name: "Design Engineering",
       url: "#",
@@ -343,18 +88,22 @@ const data = {
       url: "#",
       icon: Map,
     },
-  ],
+  ],*/
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader>
-        <TeamSwitcher teams={data.teams} />
+      <SidebarHeader className="flex items-center justify-center p-4 group mt-[-25px] mb-[-35px]">
+        <img
+          src={logo}
+          alt="Eniazou Logo"
+          className="h-40 w-auto transition-all duration-300 object-contain group-[.collapsed]:h-12 group-[.collapsed]:w-12 group-[.collapsed]:group-hover:h-16 group-[.collapsed]:group-hover:w-16"
+        />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        {/*<NavProjects projects={data.projects} />*/}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />

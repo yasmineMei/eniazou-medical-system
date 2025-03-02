@@ -13,6 +13,9 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as HomeImport } from './routes/_home'
 import { Route as IndexImport } from './routes/index'
+import { Route as HomeReportImport } from './routes/_home/report'
+import { Route as HomePersonnelImport } from './routes/_home/personnel'
+import { Route as HomePatientImport } from './routes/_home/patient'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
 
 // Create/Update Routes
@@ -26,6 +29,24 @@ const IndexRoute = IndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRoute,
+} as any)
+
+const HomeReportRoute = HomeReportImport.update({
+  id: '/report',
+  path: '/report',
+  getParentRoute: () => HomeRoute,
+} as any)
+
+const HomePersonnelRoute = HomePersonnelImport.update({
+  id: '/personnel',
+  path: '/personnel',
+  getParentRoute: () => HomeRoute,
+} as any)
+
+const HomePatientRoute = HomePatientImport.update({
+  id: '/patient',
+  path: '/patient',
+  getParentRoute: () => HomeRoute,
 } as any)
 
 const HomeDashboardRoute = HomeDashboardImport.update({
@@ -59,6 +80,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeDashboardImport
       parentRoute: typeof HomeImport
     }
+    '/_home/patient': {
+      id: '/_home/patient'
+      path: '/patient'
+      fullPath: '/patient'
+      preLoaderRoute: typeof HomePatientImport
+      parentRoute: typeof HomeImport
+    }
+    '/_home/personnel': {
+      id: '/_home/personnel'
+      path: '/personnel'
+      fullPath: '/personnel'
+      preLoaderRoute: typeof HomePersonnelImport
+      parentRoute: typeof HomeImport
+    }
+    '/_home/report': {
+      id: '/_home/report'
+      path: '/report'
+      fullPath: '/report'
+      preLoaderRoute: typeof HomeReportImport
+      parentRoute: typeof HomeImport
+    }
   }
 }
 
@@ -66,10 +108,16 @@ declare module '@tanstack/react-router' {
 
 interface HomeRouteChildren {
   HomeDashboardRoute: typeof HomeDashboardRoute
+  HomePatientRoute: typeof HomePatientRoute
+  HomePersonnelRoute: typeof HomePersonnelRoute
+  HomeReportRoute: typeof HomeReportRoute
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
   HomeDashboardRoute: HomeDashboardRoute,
+  HomePatientRoute: HomePatientRoute,
+  HomePersonnelRoute: HomePersonnelRoute,
+  HomeReportRoute: HomeReportRoute,
 }
 
 const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
@@ -78,12 +126,18 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
   '/dashboard': typeof HomeDashboardRoute
+  '/patient': typeof HomePatientRoute
+  '/personnel': typeof HomePersonnelRoute
+  '/report': typeof HomeReportRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
   '/dashboard': typeof HomeDashboardRoute
+  '/patient': typeof HomePatientRoute
+  '/personnel': typeof HomePersonnelRoute
+  '/report': typeof HomeReportRoute
 }
 
 export interface FileRoutesById {
@@ -91,14 +145,24 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_home': typeof HomeRouteWithChildren
   '/_home/dashboard': typeof HomeDashboardRoute
+  '/_home/patient': typeof HomePatientRoute
+  '/_home/personnel': typeof HomePersonnelRoute
+  '/_home/report': typeof HomeReportRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/dashboard'
+  fullPaths: '/' | '' | '/dashboard' | '/patient' | '/personnel' | '/report'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/dashboard'
-  id: '__root__' | '/' | '/_home' | '/_home/dashboard'
+  to: '/' | '' | '/dashboard' | '/patient' | '/personnel' | '/report'
+  id:
+    | '__root__'
+    | '/'
+    | '/_home'
+    | '/_home/dashboard'
+    | '/_home/patient'
+    | '/_home/personnel'
+    | '/_home/report'
   fileRoutesById: FileRoutesById
 }
 
@@ -132,11 +196,26 @@ export const routeTree = rootRoute
     "/_home": {
       "filePath": "_home.tsx",
       "children": [
-        "/_home/dashboard"
+        "/_home/dashboard",
+        "/_home/patient",
+        "/_home/personnel",
+        "/_home/report"
       ]
     },
     "/_home/dashboard": {
       "filePath": "_home/dashboard.tsx",
+      "parent": "/_home"
+    },
+    "/_home/patient": {
+      "filePath": "_home/patient.tsx",
+      "parent": "/_home"
+    },
+    "/_home/personnel": {
+      "filePath": "_home/personnel.tsx",
+      "parent": "/_home"
+    },
+    "/_home/report": {
+      "filePath": "_home/report.tsx",
       "parent": "/_home"
     }
   }
