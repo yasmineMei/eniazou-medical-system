@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as LoginImport } from './routes/login'
 import { Route as HomeImport } from './routes/_home'
 import { Route as IndexImport } from './routes/index'
 import { Route as HomeReportImport } from './routes/_home/report'
@@ -19,6 +20,12 @@ import { Route as HomePatientImport } from './routes/_home/patient'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
 
 // Create/Update Routes
+
+const LoginRoute = LoginImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const HomeRoute = HomeImport.update({
   id: '/_home',
@@ -73,6 +80,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomeImport
       parentRoute: typeof rootRoute
     }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/_home/dashboard': {
       id: '/_home/dashboard'
       path: '/dashboard'
@@ -125,6 +139,7 @@ const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
+  '/login': typeof LoginRoute
   '/dashboard': typeof HomeDashboardRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
@@ -134,6 +149,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
+  '/login': typeof LoginRoute
   '/dashboard': typeof HomeDashboardRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
@@ -144,6 +160,7 @@ export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_home': typeof HomeRouteWithChildren
+  '/login': typeof LoginRoute
   '/_home/dashboard': typeof HomeDashboardRoute
   '/_home/patient': typeof HomePatientRoute
   '/_home/personnel': typeof HomePersonnelRoute
@@ -152,13 +169,21 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '' | '/dashboard' | '/patient' | '/personnel' | '/report'
+  fullPaths:
+    | '/'
+    | ''
+    | '/login'
+    | '/dashboard'
+    | '/patient'
+    | '/personnel'
+    | '/report'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/dashboard' | '/patient' | '/personnel' | '/report'
+  to: '/' | '' | '/login' | '/dashboard' | '/patient' | '/personnel' | '/report'
   id:
     | '__root__'
     | '/'
     | '/_home'
+    | '/login'
     | '/_home/dashboard'
     | '/_home/patient'
     | '/_home/personnel'
@@ -169,11 +194,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   HomeRoute: typeof HomeRouteWithChildren
+  LoginRoute: typeof LoginRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRouteWithChildren,
+  LoginRoute: LoginRoute,
 }
 
 export const routeTree = rootRoute
@@ -187,7 +214,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
-        "/_home"
+        "/_home",
+        "/login"
       ]
     },
     "/": {
@@ -201,6 +229,9 @@ export const routeTree = rootRoute
         "/_home/personnel",
         "/_home/report"
       ]
+    },
+    "/login": {
+      "filePath": "login.tsx"
     },
     "/_home/dashboard": {
       "filePath": "_home/dashboard.tsx",

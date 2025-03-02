@@ -121,7 +121,10 @@ export function LoginForm({
 
               {/* Bouton de soumission */}
               <div className="flex flex-col gap-3">
-                <Button type="submit" className="w-full bg-[#018a8cff]">
+                <Button
+                  type="submit"
+                  className="w-full bg-[#018a8cff] hover:bg-[#016a6cff]"
+                >
                   Connecter
                 </Button>
               </div>
