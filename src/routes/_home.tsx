@@ -13,14 +13,124 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-
-import { createFileRoute, Outlet } from "@tanstack/react-router";
+import { createFileRoute, Outlet, useLocation } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_home")({
   component: RouteComponent,
 });
 
 function RouteComponent() {
+  const location = useLocation(); // Hook pour obtenir l'URL actuelle
+  const pathname = location.pathname; // Extraire le chemin de l'URL
+
+  // Fonction pour déterminer le Breadcrumb en fonction de l'URL
+  const renderBreadcrumb = () => {
+    switch (pathname) {
+      case "/dashboard":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">
+                Tableau de bord
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      case "/patient":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">
+                Patients
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      case "/personnel":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">
+                Gestion du Personnel
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      case "/report":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">
+                Rapports
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      case "/service":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">
+                Services médicaux
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      case "/setting":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">
+                Paramètres
+              </BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      case "/profil":
+        return (
+          <>
+            <BreadcrumbItem>
+              <BreadcrumbLink href="/">Accueil</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage className="text-[#108187]">Profil</BreadcrumbPage>
+            </BreadcrumbItem>
+          </>
+        );
+      default:
+        return (
+          <BreadcrumbItem>
+            <BreadcrumbPage className="text-[#108187]">Accueil</BreadcrumbPage>
+          </BreadcrumbItem>
+        );
+    }
+  };
+
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -33,22 +143,12 @@ function RouteComponent() {
               className="mr-2 data-[orientation=vertical]:h-4"
             />
             <Breadcrumb>
-              <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="#">Accueil</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
-                <BreadcrumbItem>
-                  <BreadcrumbPage className="text-[#108187]">
-                    Tableau de bord
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              </BreadcrumbList>
+              <BreadcrumbList>{renderBreadcrumb()}</BreadcrumbList>
             </Breadcrumb>
           </div>
         </header>
 
-        <Outlet></Outlet>
+        <Outlet />
       </SidebarInset>
     </SidebarProvider>
   );

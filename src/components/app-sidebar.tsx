@@ -7,6 +7,8 @@ import {
   ChartNoAxesCombined,
   Command,
   GalleryVerticalEnd,
+  HeartHandshakeIcon,
+  Settings2Icon,
   ShieldPlus,
   User2Icon,
 } from "lucide-react";
@@ -28,8 +30,8 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
-    email: "m@example.com",
+    name: "Kengani Alphonse",
+    email: "kenganialphonse@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
@@ -57,12 +59,12 @@ const data = {
       isActive: true,
     },
     {
-      title: "Patient",
+      title: "Patients",
       url: "/patient",
       icon: User2Icon,
     },
     {
-      title: "Personnel",
+      title: "Gestion du Personnel",
       url: "/personnel",
       icon: ShieldPlus,
     },
@@ -70,6 +72,16 @@ const data = {
       title: "Rapports",
       url: "/report",
       icon: BookOpen,
+    },
+    {
+      title: "Services médicaux",
+      url: "/service",
+      icon: HeartHandshakeIcon,
+    },
+    {
+      title: "Paramètres",
+      url: "/setting",
+      icon: Settings2Icon,
     },
   ],
   /* projects: [

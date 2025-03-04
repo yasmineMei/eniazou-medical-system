@@ -14,7 +14,10 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as LoginImport } from './routes/login'
 import { Route as HomeImport } from './routes/_home'
 import { Route as IndexImport } from './routes/index'
+import { Route as HomeSettingImport } from './routes/_home/setting'
+import { Route as HomeServiceImport } from './routes/_home/service'
 import { Route as HomeReportImport } from './routes/_home/report'
+import { Route as HomeProfilImport } from './routes/_home/profil'
 import { Route as HomePersonnelImport } from './routes/_home/personnel'
 import { Route as HomePatientImport } from './routes/_home/patient'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
@@ -38,9 +41,27 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const HomeSettingRoute = HomeSettingImport.update({
+  id: '/setting',
+  path: '/setting',
+  getParentRoute: () => HomeRoute,
+} as any)
+
+const HomeServiceRoute = HomeServiceImport.update({
+  id: '/service',
+  path: '/service',
+  getParentRoute: () => HomeRoute,
+} as any)
+
 const HomeReportRoute = HomeReportImport.update({
   id: '/report',
   path: '/report',
+  getParentRoute: () => HomeRoute,
+} as any)
+
+const HomeProfilRoute = HomeProfilImport.update({
+  id: '/profil',
+  path: '/profil',
   getParentRoute: () => HomeRoute,
 } as any)
 
@@ -108,11 +129,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HomePersonnelImport
       parentRoute: typeof HomeImport
     }
+    '/_home/profil': {
+      id: '/_home/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof HomeProfilImport
+      parentRoute: typeof HomeImport
+    }
     '/_home/report': {
       id: '/_home/report'
       path: '/report'
       fullPath: '/report'
       preLoaderRoute: typeof HomeReportImport
+      parentRoute: typeof HomeImport
+    }
+    '/_home/service': {
+      id: '/_home/service'
+      path: '/service'
+      fullPath: '/service'
+      preLoaderRoute: typeof HomeServiceImport
+      parentRoute: typeof HomeImport
+    }
+    '/_home/setting': {
+      id: '/_home/setting'
+      path: '/setting'
+      fullPath: '/setting'
+      preLoaderRoute: typeof HomeSettingImport
       parentRoute: typeof HomeImport
     }
   }
@@ -124,14 +166,20 @@ interface HomeRouteChildren {
   HomeDashboardRoute: typeof HomeDashboardRoute
   HomePatientRoute: typeof HomePatientRoute
   HomePersonnelRoute: typeof HomePersonnelRoute
+  HomeProfilRoute: typeof HomeProfilRoute
   HomeReportRoute: typeof HomeReportRoute
+  HomeServiceRoute: typeof HomeServiceRoute
+  HomeSettingRoute: typeof HomeSettingRoute
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
   HomeDashboardRoute: HomeDashboardRoute,
   HomePatientRoute: HomePatientRoute,
   HomePersonnelRoute: HomePersonnelRoute,
+  HomeProfilRoute: HomeProfilRoute,
   HomeReportRoute: HomeReportRoute,
+  HomeServiceRoute: HomeServiceRoute,
+  HomeSettingRoute: HomeSettingRoute,
 }
 
 const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
@@ -143,7 +191,10 @@ export interface FileRoutesByFullPath {
   '/dashboard': typeof HomeDashboardRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
+  '/profil': typeof HomeProfilRoute
   '/report': typeof HomeReportRoute
+  '/service': typeof HomeServiceRoute
+  '/setting': typeof HomeSettingRoute
 }
 
 export interface FileRoutesByTo {
@@ -153,7 +204,10 @@ export interface FileRoutesByTo {
   '/dashboard': typeof HomeDashboardRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
+  '/profil': typeof HomeProfilRoute
   '/report': typeof HomeReportRoute
+  '/service': typeof HomeServiceRoute
+  '/setting': typeof HomeSettingRoute
 }
 
 export interface FileRoutesById {
@@ -164,7 +218,10 @@ export interface FileRoutesById {
   '/_home/dashboard': typeof HomeDashboardRoute
   '/_home/patient': typeof HomePatientRoute
   '/_home/personnel': typeof HomePersonnelRoute
+  '/_home/profil': typeof HomeProfilRoute
   '/_home/report': typeof HomeReportRoute
+  '/_home/service': typeof HomeServiceRoute
+  '/_home/setting': typeof HomeSettingRoute
 }
 
 export interface FileRouteTypes {
@@ -176,9 +233,22 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/patient'
     | '/personnel'
+    | '/profil'
     | '/report'
+    | '/service'
+    | '/setting'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '' | '/login' | '/dashboard' | '/patient' | '/personnel' | '/report'
+  to:
+    | '/'
+    | ''
+    | '/login'
+    | '/dashboard'
+    | '/patient'
+    | '/personnel'
+    | '/profil'
+    | '/report'
+    | '/service'
+    | '/setting'
   id:
     | '__root__'
     | '/'
@@ -187,7 +257,10 @@ export interface FileRouteTypes {
     | '/_home/dashboard'
     | '/_home/patient'
     | '/_home/personnel'
+    | '/_home/profil'
     | '/_home/report'
+    | '/_home/service'
+    | '/_home/setting'
   fileRoutesById: FileRoutesById
 }
 
@@ -227,7 +300,10 @@ export const routeTree = rootRoute
         "/_home/dashboard",
         "/_home/patient",
         "/_home/personnel",
-        "/_home/report"
+        "/_home/profil",
+        "/_home/report",
+        "/_home/service",
+        "/_home/setting"
       ]
     },
     "/login": {
@@ -245,8 +321,20 @@ export const routeTree = rootRoute
       "filePath": "_home/personnel.tsx",
       "parent": "/_home"
     },
+    "/_home/profil": {
+      "filePath": "_home/profil.tsx",
+      "parent": "/_home"
+    },
     "/_home/report": {
       "filePath": "_home/report.tsx",
+      "parent": "/_home"
+    },
+    "/_home/service": {
+      "filePath": "_home/service.tsx",
+      "parent": "/_home"
+    },
+    "/_home/setting": {
+      "filePath": "_home/setting.tsx",
       "parent": "/_home"
     }
   }
