@@ -24,17 +24,16 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { ChartConfig, ChartContainer } from "@/components/ui/chart";
-//import { Label } from "@radix-ui/react-label";
 
 // Mock data for the chart
 const chartData = [
   { browser: "safari", visitors: 200, fill: "#FFA500" },
-  { month: "Janvier", consultation: 186, hospitalisation: 80 },
-  { month: "Fevrier", consultation: 305, hospitalisation: 200 },
-  { month: "Mars", consultation: 237, hospitalisation: 120 },
-  { month: "Avril", consultation: 73, hospitalisation: 190 },
-  { month: "Mai", consultation: 209, hospitalisation: 130 },
-  { month: "Juin", consultation: 214, hospitalisation: 140 },
+  { month: "Janvier", rendezVous: 186 },
+  { month: "Fevrier", rendezVous: 305 },
+  { month: "Mars", rendezVous: 237 },
+  { month: "Avril", rendezVous: 73 },
+  { month: "Mai", rendezVous: 209 },
+  { month: "Juin", rendezVous: 214 },
 ];
 
 // Chart configuration
@@ -50,13 +49,9 @@ const chartConfig = {
 
 // Chart configuration for the line chart
 const chartConfig2 = {
-  consultation: {
-    label: "Consultation",
+  rendezVous: {
+    label: "Rendez-vous",
     color: "hsl(var(--chart-1))",
-  },
-  hospitalisation: {
-    label: "Hospitalisation",
-    color: "hsl(var(--chart-2))",
   },
 } satisfies ChartConfig;
 
@@ -146,8 +141,8 @@ function DashboardComponent() {
           <CardContent className="flex-1 pb-0">
             <p className="text-center text-xl font-bold">5</p>
             <p className="text-center text-muted-foreground">
-              Médecins enregistrés 
-             </p>
+              Médecins enregistrés
+            </p>
           </CardContent>
         </Card>
 
@@ -184,7 +179,7 @@ function DashboardComponent() {
       <div className="bg-muted/50 min-h-[100vh] flex-1 rounded-xl md:min-h-4">
         <Card>
           <CardHeader>
-            <CardTitle>Consultation et Hospitalisation </CardTitle>
+            <CardTitle>Rendez-Vous</CardTitle>
             <CardDescription>Janvier - Juin 2024</CardDescription>
           </CardHeader>
           <CardContent>
@@ -210,16 +205,9 @@ function DashboardComponent() {
                 <Tooltip />
                 <Legend />
                 <Line
-                  dataKey="consultation"
+                  dataKey="rendezVous"
                   type="monotone"
                   stroke="#8884d8"
-                  strokeWidth={2}
-                  dot={false}
-                />
-                <Line
-                  dataKey="hospitalisation"
-                  type="monotone"
-                  stroke="#82ca9d"
                   strokeWidth={2}
                   dot={false}
                 />

@@ -1,7 +1,6 @@
 "use client";
 
-import { BadgeCheck, ChevronsUpDown,  LogOut } from "lucide-react";
-
+import { BadgeCheck, ChevronsUpDown, LogOut } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -73,7 +72,7 @@ export function NavUser({
 
             <DropdownMenuGroup>
               <DropdownMenuItem asChild>
-                <Link to="/profil" className="flex items-center gap-2 ">
+                <Link to="/profil" className="flex items-center gap-2 cursor-pointer">
                   <BadgeCheck />
                   Profil
                 </Link>
@@ -82,7 +81,7 @@ export function NavUser({
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
-              Deconnexion
+              Déconnexion
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

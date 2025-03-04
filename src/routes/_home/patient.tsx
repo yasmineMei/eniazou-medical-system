@@ -1,6 +1,6 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
-import { Calendar1, CalendarDays, Clock, Eye } from "lucide-react";
+import { Calendar1, CalendarDays, Clock, Eye, Printer } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import {
   Table,
@@ -18,22 +18,45 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { useState } from "react";
+import { DropdownMenuSeparator } from "@/components/ui/dropdown-menu";
 
 export const Route = createFileRoute("/_home/patient")({
   component: RouteComponent,
 });
 
+type Patient = {
+  id: number;
+  nom: string;
+  prenom: string;
+  birthDate: string;
+  birthPlace: string;
+  numberPhone: string;
+  poids: string;
+  taille: string;
+  blood: string;
+  dateEnregistrement: string;
+  genre: string;
+  dossierMedical: string;
+  age: number;
+};
+
 function RouteComponent() {
-  const [searchQuery, setSearchQuery] = useState(""); // État pour la barre de recherche
-  const [selectedPatient, setSelectedPatient] = useState(null); // État pour le patient sélectionné
-  const [isDialogOpen, setIsDialogOpen] = useState(false); // État pour le dialog
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [selectedPatient, setSelectedPatient] = useState<Patient | null>(null);
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 
   // Données fictives pour les patients
-  const patients = [
+  const patients: Patient[] = [
     {
       id: 1,
       nom: "Dupont",
       prenom: "Jean",
+      birthDate: "5 Juin 1989",
+      birthPlace: "Abidjan",
+      numberPhone: "48 13 26 49",
+      poids: "78",
+      taille: "173",
+      blood: "A-",
       dateEnregistrement: "2023-10-01",
       genre: "Homme",
       dossierMedical: "DM12345",
@@ -43,6 +66,12 @@ function RouteComponent() {
       id: 2,
       nom: "Martin",
       prenom: "Marie",
+      birthDate: "5 Juin 1989",
+      birthPlace: "Yopougon",
+      poids: "78",
+      taille: "173",
+      blood: "O+",
+      numberPhone: "48 13 26 49",
       dateEnregistrement: "2023-09-15",
       genre: "Femme",
       dossierMedical: "DM67890",
@@ -59,10 +88,38 @@ function RouteComponent() {
   );
 
   // Ouvrir le dialog avec les détails du patient
-  const handleViewDetails = (patient) => {
+  const handleViewDetails = (patient: Patient) => {
     setSelectedPatient(patient);
     setIsDialogOpen(true);
   };
+
+  // Cartes de statistiques
+  const statsCards = [
+    {
+      title: "Patients journalier",
+      value: "2",
+      description: "Nombre total de patients aujourd'hui",
+      icon: <Clock className="h-8 w-8 text-[#018a8cff]" />,
+      bgColor: "from-green-50 to-green-100",
+      textColor: "text-green-700",
+    },
+    {
+      title: "Patients mensuel",
+      value: "23",
+      description: "Nombre total de patients ce mois-ci",
+      icon: <Calendar1 className="h-8 w-8 text-[#018a8cff]" />,
+      bgColor: "from-red-50 to-red-100",
+      textColor: "text-red-700",
+    },
+    {
+      title: "Patients annuel",
+      value: "56",
+      description: "Nombre total de patients cette année",
+      icon: <CalendarDays className="h-8 w-8 text-[#018a8cff]" />,
+      bgColor: "from-purple-50 to-purple-100",
+      textColor: "text-purple-500",
+    },
+  ];
 
   return (
     <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -70,45 +127,23 @@ function RouteComponent() {
 
       {/* Cartes de statistiques */}
       <div className="grid auto-rows-min gap-4 md:grid-cols-3">
-        <Card className="bg-gradient-to-br from-green-50 to-green-100">
-          <CardHeader className="items-center pb-0">
-            <Clock className="h-8 w-8 text-[#018a8cff]" />
-            <CardTitle>Patients journalier</CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 pb-0">
-            <p className="text-center text-xl font-bold">2</p>
-            <p className="text-center text-muted-foreground">
-              Nombre total de patients{" "}
-              <span className="text-green-700 font-bold">2</span> aujourd'hui
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-red-50 to-red-100">
-          <CardHeader className="items-center pb-0">
-            <Calendar1 className="h-8 w-8 text-[#018a8cff]" />
-            <CardTitle>Patients mensuel</CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 pb-0">
-            <p className="text-center text-xl font-bold">23</p>
-            <p className="text-center text-muted-foreground">
-              Nombre total de patients{" "}
-              <span className="text-red-700 font-bold">23</span> aujourd'hui
-            </p>
-          </CardContent>
-        </Card>
-        <Card className="bg-gradient-to-br from-purple-50 to-purple-100">
-          <CardHeader className="items-center pb-0">
-            <CalendarDays className="h-8 w-8 text-[#018a8cff]" />
-            <CardTitle>Patients annuel</CardTitle>
-          </CardHeader>
-          <CardContent className="flex-1 pb-0">
-            <p className="text-center text-xl font-bold">56</p>
-            <p className="text-center text-muted-foreground">
-              Nombre total de patients{" "}
-              <span className="text-purple-500 font-bold">56</span> aujourd'hui
-            </p>
-          </CardContent>
-        </Card>
+        {statsCards.map((card, index) => (
+          <Card key={index} className={`bg-gradient-to-br ${card.bgColor}`}>
+            <CardHeader className="items-center pb-0">
+              {card.icon}
+              <CardTitle>{card.title}</CardTitle>
+            </CardHeader>
+            <CardContent className="flex-1 pb-0">
+              <p className="text-center text-xl font-bold">{card.value}</p>
+              <p className="text-center text-muted-foreground">
+                {card.description}{" "}
+                <span className={`${card.textColor} font-bold`}>
+                  {card.value}
+                </span>
+              </p>
+            </CardContent>
+          </Card>
+        ))}
       </div>
 
       {/* Barre de recherche */}
@@ -154,6 +189,9 @@ function RouteComponent() {
                     >
                       <Eye className="h-4 w-4" />
                     </Button>
+                    <Button className="ml-2" variant="outline" size="sm">
+                      <Printer className="h-4 w-4" />
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -162,7 +200,7 @@ function RouteComponent() {
         </CardContent>
       </Card>
 
-      {/* Dialog pour afficher les détails du patient */}
+      {/* Modal pour afficher les détails du patient */}
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
@@ -171,48 +209,71 @@ function RouteComponent() {
               {selectedPatient?.prenom}
             </DialogTitle>
           </DialogHeader>
-          <div className="space-y-4">
+          <div className="space-y-6">
             {/* Informations personnelles */}
             <div>
-              <h2 className="text-lg font-bold">Informations personnelles</h2>
-              <p>Nom: {selectedPatient?.nom}</p>
-              <p>Prénom: {selectedPatient?.prenom}</p>
-              <p>Genre: {selectedPatient?.genre}</p>
-              <p>Âge: {selectedPatient?.age}</p>
-              <p>
-                Date d'enregistrement: {selectedPatient?.dateEnregistrement}
-              </p>
-              <p>Numéro de dossier: {selectedPatient?.dossierMedical}</p>
+              <h2 className="text-lg font-bold text-[#018a8cff] mb-4">
+                Informations personnelles
+              </h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p>
+                    <strong>Nom:</strong> {selectedPatient?.nom}{" "}
+                    {selectedPatient?.prenom}
+                  </p>
+                  <p>
+                    <strong>Numéro de téléphone:</strong>{" "}
+                    {selectedPatient?.numberPhone}
+                  </p>
+                  <p>
+                    <strong>Genre:</strong> {selectedPatient?.genre}
+                  </p>
+                  <p>
+                    <strong>Groupe Sanguin:</strong> {selectedPatient?.blood}
+                  </p>
+                </div>
+                <div>
+                  <p>
+                    <strong>Date de naissance:</strong>{" "}
+                    {selectedPatient?.birthDate}
+                  </p>
+                  <p>
+                    <strong>Lieu de naissance:</strong>{" "}
+                    {selectedPatient?.birthPlace}
+                  </p>
+                  <p>
+                    <strong>Taille:</strong> {selectedPatient?.taille} cm
+                  </p>
+                  <p>
+                    <strong>Poids:</strong> {selectedPatient?.poids} Kg
+                  </p>
+                </div>
+              </div>
             </div>
 
-            {/* Antécedents */}
-            <div>
-              <h2 className="text-lg font-bold">Antécédents médicaux</h2>
-              <p>Aucun antécedents enregistré.</p>
-            </div>
+            <DropdownMenuSeparator />
 
-            {/* Traitements */}
+            {/* Historique médical */}
             <div>
-              <h2 className="text-lg font-bold">Traitements</h2>
-              <p>Aucun traitement enregistré.</p>
-            </div>
-
-            {/* Analyses */}
-            <div>
-              <h2 className="text-lg font-bold">Analyses médicales</h2>
-              <p>Aucune analyse enregistrée.</p>
-            </div>
-
-            {/* Examens */}
-            <div>
-              <h2 className="text-lg font-bold">Examens médicales</h2>
-              <p>Aucun examen enregistré.</p>
-            </div>
-
-            {/* Rendez-vous */}
-            <div>
-              <h2 className="text-lg font-bold">Rendez-vous</h2>
-              <p>Aucun rendez-vous enregistré.</p>
+              <h2 className="text-lg font-bold text-[#018a8cff] mb-4">
+                Historique médical général
+              </h2>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <p>Varicelle: </p>
+                  <p>Hémorroïdes: </p>
+                  <p>Hépatite B: </p>
+                  <p>Allergies: </p>
+                  <p>Chirurgies Antérieures: </p>
+                  <p>Problèmes médicaux particuliers: </p>
+                  <p>Médicaments à long terme: </p>
+                </div>
+                <div>
+                  <p>Rougeole: </p>
+                  <p>Drépanocytose: </p>
+                  <p>Diabète: </p>
+                </div>
+              </div>
             </div>
           </div>
         </DialogContent>

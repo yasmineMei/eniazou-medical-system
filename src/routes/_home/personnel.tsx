@@ -1,5 +1,8 @@
+"use client";
+
+import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { Plus, Eye, Edit } from "lucide-react"; // Icônes
+import { Plus, Eye, Edit, Trash } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -19,7 +22,6 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
-import { useState } from "react";
 import {
   Table,
   TableHeader,
@@ -35,6 +37,7 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { motion } from "framer-motion";
 
 export const Route = createFileRoute("/_home/personnel")({
   component: RouteComponent,
@@ -43,6 +46,7 @@ export const Route = createFileRoute("/_home/personnel")({
 function RouteComponent() {
   const [isModalOpen, setIsModalOpen] = useState(false); // Gestion du modal d'ajout
   const [isViewModalOpen, setIsViewModalOpen] = useState(false); // Gestion du modal de visualisation
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false); // Gestion du modal de modification
   const [selectedMember, setSelectedMember] = useState(null); // État pour le membre sélectionné
   const [name, setName] = useState(""); // État pour le nom
   const [email, setEmail] = useState(""); // État pour l'email
@@ -52,7 +56,7 @@ function RouteComponent() {
   const itemsPerPage = 10; // Nombre d'éléments par page
 
   // Données fictives pour le personnel
-  const personnel = [
+  const [personnel, setPersonnel] = useState([
     {
       id: 1,
       name: "Kouakou Hélène",
@@ -84,20 +88,64 @@ function RouteComponent() {
       position: "Réceptionniste",
       hireDate: "2023-03-10",
     },
-  ];
+  ]);
 
   // Gestion de la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Ajoutez ici la logique pour créer un nouveau membre
-    console.log("Nouveau membre créé :", { name, email, role });
-    setIsModalOpen(false); // Fermer le modal après soumission
+    const newMember = {
+      id: personnel.length + 1,
+      name,
+      email,
+      role,
+      status: "active",
+      photo: "/avatars/default.jpg",
+      medicalLicense: role === "doctor" ? "12345" : "",
+      specialty: role === "doctor" ? "Cardiologie" : "",
+      hireDate: new Date().toISOString().split("T")[0],
+    };
+    setPersonnel([...personnel, newMember]);
+    setIsModalOpen(false);
+    resetForm();
+  };
+
+  // Réinitialiser le formulaire
+  const resetForm = () => {
+    setName("");
+    setEmail("");
+    setRole("");
+    setPassword("");
   };
 
   // Ouvrir le modal de visualisation
   const handleView = (member) => {
     setSelectedMember(member);
     setIsViewModalOpen(true);
+  };
+
+  // Ouvrir le modal de modification
+  const handleEdit = (member) => {
+    setSelectedMember(member);
+    setName(member.name);
+    setEmail(member.email);
+    setRole(member.role);
+    setIsEditModalOpen(true);
+  };
+
+  // Gestion de la modification d'un membre
+  const handleEditSubmit = (event) => {
+    event.preventDefault();
+    const updatedPersonnel = personnel.map((m) =>
+      m.id === selectedMember.id ? { ...m, name, email, role } : m
+    );
+    setPersonnel(updatedPersonnel);
+    setIsEditModalOpen(false);
+    resetForm();
+  };
+
+  // Supprimer un membre
+  const handleDelete = (id) => {
+    setPersonnel(personnel.filter((m) => m.id !== id));
   };
 
   // Pagination
@@ -112,12 +160,14 @@ function RouteComponent() {
       {/* En-tête */}
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold">Gestion du Personnel</h1>
-        <Button
-          onClick={() => setIsModalOpen(true)}
-          className="bg-[#018a8cff] hover:bg-[#016a6cff]"
-        >
-          <Plus className="mr-2 h-4 w-4" /> Ajouter un membre
-        </Button>
+        <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+          <Button
+            onClick={() => setIsModalOpen(true)}
+            className="bg-[#018a8cff] hover:bg-[#016a6cff]"
+          >
+            <Plus className="mr-2 h-4 w-4" /> Ajouter un membre
+          </Button>
+        </motion.div>
       </div>
 
       {/* Tableau du personnel */}
@@ -135,7 +185,13 @@ function RouteComponent() {
             </TableHeader>
             <TableBody>
               {currentData.map((member) => (
-                <TableRow key={member.id}>
+                <motion.tr
+                  key={member.id}
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                >
                   <TableCell className="flex items-center gap-2">
                     <Avatar>
                       <AvatarImage src={member.photo} alt={member.name} />
@@ -158,23 +214,45 @@ function RouteComponent() {
                   </TableCell>
                   <TableCell>
                     <div className="flex gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleView(member)}
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                       >
-                        <Eye className="h-4 w-4" />
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => handleEdit(member.id)}
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleView(member)}
+                        >
+                          <Eye className="h-4 w-4" />
+                        </Button>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
                       >
-                        <Edit className="h-4 w-4" />
-                      </Button>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleEdit(member)}
+                        >
+                          <Edit className="h-4 w-4" />
+                        </Button>
+                      </motion.div>
+                      <motion.div
+                        whileHover={{ scale: 1.1 }}
+                        whileTap={{ scale: 0.9 }}
+                      >
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => handleDelete(member.id)}
+                        >
+                          <Trash className="h-4 w-4" />
+                        </Button>
+                      </motion.div>
                     </div>
                   </TableCell>
-                </TableRow>
+                </motion.tr>
               ))}
             </TableBody>
           </Table>
@@ -407,6 +485,61 @@ function RouteComponent() {
               )}
             </div>
           )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Modal pour modifier un membre */}
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Modifier un membre du personnel</DialogTitle>
+          </DialogHeader>
+          <form onSubmit={handleEditSubmit}>
+            <div className="space-y-4">
+              <div>
+                <Label>Nom et prénom</Label>
+                <Input
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label>Email</Label>
+                <Input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div>
+                <Label>Rôle</Label>
+                <Select value={role} onValueChange={(value) => setRole(value)}>
+                  <SelectTrigger>
+                    <SelectValue placeholder="Sélectionnez un rôle" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="doctor">Médecin</SelectItem>
+                    <SelectItem value="nurse">Infirmier</SelectItem>
+                    <SelectItem value="techlab">Laborantin</SelectItem>
+                    <SelectItem value="reception">
+                      Personnel Administratif
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+            <DialogFooter className="mt-2">
+              <Button
+                type="submit"
+                className="bg-[#018a8cff] hover:bg-[#016a6cff]"
+              >
+                Enregistrer
+              </Button>
+            </DialogFooter>
+          </form>
         </DialogContent>
       </Dialog>
     </div>

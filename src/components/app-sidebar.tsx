@@ -1,6 +1,8 @@
 "use client";
 
 import * as React from "react";
+import { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   AudioWaveform,
   BookOpen,
@@ -14,7 +16,6 @@ import {
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
-//import { NavProjects } from "@/components/nav-projects";
 import { NavUser } from "@/components/nav-user";
 import logo from "@/images/logo.png";
 
@@ -25,9 +26,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar";
-//import { TeamSwitcher } from "./team-switcher";
 
-// This is sample data.
 const data = {
   user: {
     name: "Kengani Alphonse",
@@ -84,38 +83,50 @@ const data = {
       icon: Settings2Icon,
     },
   ],
-  /* projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],*/
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoading(false), 1000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
-    <Sidebar collapsible="icon" {...props}>
+    <Sidebar
+      collapsible="icon"
+      className="bg-gradient-to-br from-[#018a8cff] to-[#016a6cff] shadow-lg"
+      {...props}
+    >
+      <AnimatePresence>
+        {isLoading && (
+          <motion.div
+            className="absolute inset-0 bg-white/50 flex items-center justify-center"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.5 }}
+          >
+            <motion.div
+              className="w-12 h-12 bg-[#018a8cff] rounded-full"
+              animate={{ scale: [1, 1.5, 1] }}
+              transition={{ duration: 1, repeat: Infinity }}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <SidebarHeader className="flex items-center justify-center p-4 group mt-[-25px] mb-[-35px]">
-        <img
+        <motion.img
           src={logo}
           alt="Eniazou Logo"
           className="h-40 w-auto transition-all duration-300 object-contain group-[.collapsed]:h-12 group-[.collapsed]:w-12 group-[.collapsed]:group-hover:h-16 group-[.collapsed]:group-hover:w-16"
+          whileHover={{ scale: 1.1 }}
+          transition={{ type: "spring", stiffness: 300 }}
         />
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        {/*<NavProjects projects={data.projects} />*/}
       </SidebarContent>
       <SidebarFooter>
         <NavUser user={data.user} />
