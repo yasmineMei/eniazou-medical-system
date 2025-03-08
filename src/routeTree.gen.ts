@@ -22,6 +22,7 @@ import { Route as HomePersonnelImport } from './routes/_home/personnel'
 import { Route as HomePatientImport } from './routes/_home/patient'
 import { Route as HomeMessageImport } from './routes/_home/message'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
+import { Route as HomeAppointmentImport } from './routes/_home/appointment'
 
 // Create/Update Routes
 
@@ -90,6 +91,12 @@ const HomeDashboardRoute = HomeDashboardImport.update({
   getParentRoute: () => HomeRoute,
 } as any)
 
+const HomeAppointmentRoute = HomeAppointmentImport.update({
+  id: '/appointment',
+  path: '/appointment',
+  getParentRoute: () => HomeRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -114,6 +121,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/login'
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
+    }
+    '/_home/appointment': {
+      id: '/_home/appointment'
+      path: '/appointment'
+      fullPath: '/appointment'
+      preLoaderRoute: typeof HomeAppointmentImport
+      parentRoute: typeof HomeImport
     }
     '/_home/dashboard': {
       id: '/_home/dashboard'
@@ -177,6 +191,7 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface HomeRouteChildren {
+  HomeAppointmentRoute: typeof HomeAppointmentRoute
   HomeDashboardRoute: typeof HomeDashboardRoute
   HomeMessageRoute: typeof HomeMessageRoute
   HomePatientRoute: typeof HomePatientRoute
@@ -188,6 +203,7 @@ interface HomeRouteChildren {
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
+  HomeAppointmentRoute: HomeAppointmentRoute,
   HomeDashboardRoute: HomeDashboardRoute,
   HomeMessageRoute: HomeMessageRoute,
   HomePatientRoute: HomePatientRoute,
@@ -204,6 +220,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
   '/login': typeof LoginRoute
+  '/appointment': typeof HomeAppointmentRoute
   '/dashboard': typeof HomeDashboardRoute
   '/message': typeof HomeMessageRoute
   '/patient': typeof HomePatientRoute
@@ -218,6 +235,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '': typeof HomeRouteWithChildren
   '/login': typeof LoginRoute
+  '/appointment': typeof HomeAppointmentRoute
   '/dashboard': typeof HomeDashboardRoute
   '/message': typeof HomeMessageRoute
   '/patient': typeof HomePatientRoute
@@ -233,6 +251,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/_home': typeof HomeRouteWithChildren
   '/login': typeof LoginRoute
+  '/_home/appointment': typeof HomeAppointmentRoute
   '/_home/dashboard': typeof HomeDashboardRoute
   '/_home/message': typeof HomeMessageRoute
   '/_home/patient': typeof HomePatientRoute
@@ -249,6 +268,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/login'
+    | '/appointment'
     | '/dashboard'
     | '/message'
     | '/patient'
@@ -262,6 +282,7 @@ export interface FileRouteTypes {
     | '/'
     | ''
     | '/login'
+    | '/appointment'
     | '/dashboard'
     | '/message'
     | '/patient'
@@ -275,6 +296,7 @@ export interface FileRouteTypes {
     | '/'
     | '/_home'
     | '/login'
+    | '/_home/appointment'
     | '/_home/dashboard'
     | '/_home/message'
     | '/_home/patient'
@@ -319,6 +341,7 @@ export const routeTree = rootRoute
     "/_home": {
       "filePath": "_home.tsx",
       "children": [
+        "/_home/appointment",
         "/_home/dashboard",
         "/_home/message",
         "/_home/patient",
@@ -331,6 +354,10 @@ export const routeTree = rootRoute
     },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/_home/appointment": {
+      "filePath": "_home/appointment.tsx",
+      "parent": "/_home"
     },
     "/_home/dashboard": {
       "filePath": "_home/dashboard.tsx",

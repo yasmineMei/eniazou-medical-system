@@ -58,12 +58,12 @@ const data = {
       isActive: true,
     },
     {
-      title: "Patients",
+      title: "Rendez-vous",
       url: "/patient",
       icon: User2Icon,
     },
     {
-      title: "Gestion du Personnel",
+      title: "Dossiers patients",
       url: "/personnel",
       icon: ShieldPlus,
     },
