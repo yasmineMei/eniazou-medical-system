@@ -20,6 +20,7 @@ import { Route as HomeReportImport } from './routes/_home/report'
 import { Route as HomeProfilImport } from './routes/_home/profil'
 import { Route as HomePersonnelImport } from './routes/_home/personnel'
 import { Route as HomePatientImport } from './routes/_home/patient'
+import { Route as HomeMessageImport } from './routes/_home/message'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
 import { Route as HomeAppointmentImport } from './routes/_home/appointment'
 
@@ -78,6 +79,12 @@ const HomePatientRoute = HomePatientImport.update({
   getParentRoute: () => HomeRoute,
 } as any)
 
+const HomeMessageRoute = HomeMessageImport.update({
+  id: '/message',
+  path: '/message',
+  getParentRoute: () => HomeRoute,
+} as any)
+
 const HomeDashboardRoute = HomeDashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -127,6 +134,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof HomeDashboardImport
+      parentRoute: typeof HomeImport
+    }
+    '/_home/message': {
+      id: '/_home/message'
+      path: '/message'
+      fullPath: '/message'
+      preLoaderRoute: typeof HomeMessageImport
       parentRoute: typeof HomeImport
     }
     '/_home/patient': {
@@ -179,6 +193,7 @@ declare module '@tanstack/react-router' {
 interface HomeRouteChildren {
   HomeAppointmentRoute: typeof HomeAppointmentRoute
   HomeDashboardRoute: typeof HomeDashboardRoute
+  HomeMessageRoute: typeof HomeMessageRoute
   HomePatientRoute: typeof HomePatientRoute
   HomePersonnelRoute: typeof HomePersonnelRoute
   HomeProfilRoute: typeof HomeProfilRoute
@@ -190,6 +205,7 @@ interface HomeRouteChildren {
 const HomeRouteChildren: HomeRouteChildren = {
   HomeAppointmentRoute: HomeAppointmentRoute,
   HomeDashboardRoute: HomeDashboardRoute,
+  HomeMessageRoute: HomeMessageRoute,
   HomePatientRoute: HomePatientRoute,
   HomePersonnelRoute: HomePersonnelRoute,
   HomeProfilRoute: HomeProfilRoute,
@@ -206,6 +222,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/appointment': typeof HomeAppointmentRoute
   '/dashboard': typeof HomeDashboardRoute
+  '/message': typeof HomeMessageRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
   '/profil': typeof HomeProfilRoute
@@ -220,6 +237,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/appointment': typeof HomeAppointmentRoute
   '/dashboard': typeof HomeDashboardRoute
+  '/message': typeof HomeMessageRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
   '/profil': typeof HomeProfilRoute
@@ -235,6 +253,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/_home/appointment': typeof HomeAppointmentRoute
   '/_home/dashboard': typeof HomeDashboardRoute
+  '/_home/message': typeof HomeMessageRoute
   '/_home/patient': typeof HomePatientRoute
   '/_home/personnel': typeof HomePersonnelRoute
   '/_home/profil': typeof HomeProfilRoute
@@ -251,6 +270,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/appointment'
     | '/dashboard'
+    | '/message'
     | '/patient'
     | '/personnel'
     | '/profil'
@@ -264,6 +284,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/appointment'
     | '/dashboard'
+    | '/message'
     | '/patient'
     | '/personnel'
     | '/profil'
@@ -277,6 +298,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/_home/appointment'
     | '/_home/dashboard'
+    | '/_home/message'
     | '/_home/patient'
     | '/_home/personnel'
     | '/_home/profil'
@@ -321,6 +343,7 @@ export const routeTree = rootRoute
       "children": [
         "/_home/appointment",
         "/_home/dashboard",
+        "/_home/message",
         "/_home/patient",
         "/_home/personnel",
         "/_home/profil",
@@ -338,6 +361,10 @@ export const routeTree = rootRoute
     },
     "/_home/dashboard": {
       "filePath": "_home/dashboard.tsx",
+      "parent": "/_home"
+    },
+    "/_home/message": {
+      "filePath": "_home/message.tsx",
       "parent": "/_home"
     },
     "/_home/patient": {
