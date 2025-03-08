@@ -20,6 +20,7 @@ import { Route as HomeReportImport } from './routes/_home/report'
 import { Route as HomeProfilImport } from './routes/_home/profil'
 import { Route as HomePersonnelImport } from './routes/_home/personnel'
 import { Route as HomePatientImport } from './routes/_home/patient'
+import { Route as HomeNurseStationImport } from './routes/_home/nurseStation'
 import { Route as HomeDashboardImport } from './routes/_home/dashboard'
 
 // Create/Update Routes
@@ -77,6 +78,12 @@ const HomePatientRoute = HomePatientImport.update({
   getParentRoute: () => HomeRoute,
 } as any)
 
+const HomeNurseStationRoute = HomeNurseStationImport.update({
+  id: '/nurseStation',
+  path: '/nurseStation',
+  getParentRoute: () => HomeRoute,
+} as any)
+
 const HomeDashboardRoute = HomeDashboardImport.update({
   id: '/dashboard',
   path: '/dashboard',
@@ -113,6 +120,13 @@ declare module '@tanstack/react-router' {
       path: '/dashboard'
       fullPath: '/dashboard'
       preLoaderRoute: typeof HomeDashboardImport
+      parentRoute: typeof HomeImport
+    }
+    '/_home/nurseStation': {
+      id: '/_home/nurseStation'
+      path: '/nurseStation'
+      fullPath: '/nurseStation'
+      preLoaderRoute: typeof HomeNurseStationImport
       parentRoute: typeof HomeImport
     }
     '/_home/patient': {
@@ -164,6 +178,7 @@ declare module '@tanstack/react-router' {
 
 interface HomeRouteChildren {
   HomeDashboardRoute: typeof HomeDashboardRoute
+  HomeNurseStationRoute: typeof HomeNurseStationRoute
   HomePatientRoute: typeof HomePatientRoute
   HomePersonnelRoute: typeof HomePersonnelRoute
   HomeProfilRoute: typeof HomeProfilRoute
@@ -174,6 +189,7 @@ interface HomeRouteChildren {
 
 const HomeRouteChildren: HomeRouteChildren = {
   HomeDashboardRoute: HomeDashboardRoute,
+  HomeNurseStationRoute: HomeNurseStationRoute,
   HomePatientRoute: HomePatientRoute,
   HomePersonnelRoute: HomePersonnelRoute,
   HomeProfilRoute: HomeProfilRoute,
@@ -189,6 +205,7 @@ export interface FileRoutesByFullPath {
   '': typeof HomeRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard': typeof HomeDashboardRoute
+  '/nurseStation': typeof HomeNurseStationRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
   '/profil': typeof HomeProfilRoute
@@ -202,6 +219,7 @@ export interface FileRoutesByTo {
   '': typeof HomeRouteWithChildren
   '/login': typeof LoginRoute
   '/dashboard': typeof HomeDashboardRoute
+  '/nurseStation': typeof HomeNurseStationRoute
   '/patient': typeof HomePatientRoute
   '/personnel': typeof HomePersonnelRoute
   '/profil': typeof HomeProfilRoute
@@ -216,6 +234,7 @@ export interface FileRoutesById {
   '/_home': typeof HomeRouteWithChildren
   '/login': typeof LoginRoute
   '/_home/dashboard': typeof HomeDashboardRoute
+  '/_home/nurseStation': typeof HomeNurseStationRoute
   '/_home/patient': typeof HomePatientRoute
   '/_home/personnel': typeof HomePersonnelRoute
   '/_home/profil': typeof HomeProfilRoute
@@ -231,6 +250,7 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/dashboard'
+    | '/nurseStation'
     | '/patient'
     | '/personnel'
     | '/profil'
@@ -243,6 +263,7 @@ export interface FileRouteTypes {
     | ''
     | '/login'
     | '/dashboard'
+    | '/nurseStation'
     | '/patient'
     | '/personnel'
     | '/profil'
@@ -255,6 +276,7 @@ export interface FileRouteTypes {
     | '/_home'
     | '/login'
     | '/_home/dashboard'
+    | '/_home/nurseStation'
     | '/_home/patient'
     | '/_home/personnel'
     | '/_home/profil'
@@ -298,6 +320,7 @@ export const routeTree = rootRoute
       "filePath": "_home.tsx",
       "children": [
         "/_home/dashboard",
+        "/_home/nurseStation",
         "/_home/patient",
         "/_home/personnel",
         "/_home/profil",
@@ -311,6 +334,10 @@ export const routeTree = rootRoute
     },
     "/_home/dashboard": {
       "filePath": "_home/dashboard.tsx",
+      "parent": "/_home"
+    },
+    "/_home/nurseStation": {
+      "filePath": "_home/nurseStation.tsx",
       "parent": "/_home"
     },
     "/_home/patient": {
