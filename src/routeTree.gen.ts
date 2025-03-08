@@ -10,347 +10,303 @@
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as LoginImport } from './routes/login'
-import { Route as HomeImport } from './routes/_home'
-import { Route as IndexImport } from './routes/index'
-import { Route as HomeSettingImport } from './routes/_home/setting'
-import { Route as HomeServiceImport } from './routes/_home/service'
-import { Route as HomeReportImport } from './routes/_home/report'
-import { Route as HomeProfilImport } from './routes/_home/profil'
-import { Route as HomePersonnelImport } from './routes/_home/personnel'
-import { Route as HomePatientImport } from './routes/_home/patient'
-<<<<<<< HEAD
-import { Route as HomeNurseStationImport } from './routes/_home/nurseStation'
-=======
-import { Route as HomeMessageImport } from './routes/_home/message'
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-import { Route as HomeDashboardImport } from './routes/_home/dashboard'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as LoginImport } from "./routes/login";
+import { Route as HomeImport } from "./routes/_home";
+import { Route as IndexImport } from "./routes/index";
+import { Route as HomeSettingImport } from "./routes/_home/setting";
+import { Route as HomeServiceImport } from "./routes/_home/service";
+import { Route as HomeReportImport } from "./routes/_home/report";
+import { Route as HomeProfilImport } from "./routes/_home/profil";
+import { Route as HomePersonnelImport } from "./routes/_home/personnel";
+import { Route as HomePatientImport } from "./routes/_home/patient";
+import { Route as HomeMessageImport } from "./routes/_home/message";
+import { Route as HomeDashboardImport } from "./routes/_home/dashboard";
 
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
-  id: '/login',
-  path: '/login',
+  id: "/login",
+  path: "/login",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const HomeRoute = HomeImport.update({
-  id: '/_home',
+  id: "/_home",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const IndexRoute = IndexImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRoute,
-} as any)
+} as any);
 
 const HomeSettingRoute = HomeSettingImport.update({
-  id: '/setting',
-  path: '/setting',
+  id: "/setting",
+  path: "/setting",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 const HomeServiceRoute = HomeServiceImport.update({
-  id: '/service',
-  path: '/service',
+  id: "/service",
+  path: "/service",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 const HomeReportRoute = HomeReportImport.update({
-  id: '/report',
-  path: '/report',
+  id: "/report",
+  path: "/report",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 const HomeProfilRoute = HomeProfilImport.update({
-  id: '/profil',
-  path: '/profil',
+  id: "/profil",
+  path: "/profil",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 const HomePersonnelRoute = HomePersonnelImport.update({
-  id: '/personnel',
-  path: '/personnel',
+  id: "/personnel",
+  path: "/personnel",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 const HomePatientRoute = HomePatientImport.update({
-  id: '/patient',
-  path: '/patient',
+  id: "/patient",
+  path: "/patient",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
-<<<<<<< HEAD
-const HomeNurseStationRoute = HomeNurseStationImport.update({
-  id: '/nurseStation',
-  path: '/nurseStation',
-=======
 const HomeMessageRoute = HomeMessageImport.update({
-  id: '/message',
-  path: '/message',
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
+  id: "/message",
+  path: "/message",
+
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 const HomeDashboardRoute = HomeDashboardImport.update({
-  id: '/dashboard',
-  path: '/dashboard',
+  id: "/dashboard",
+  path: "/dashboard",
   getParentRoute: () => HomeRoute,
-} as any)
+} as any);
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexImport
-      parentRoute: typeof rootRoute
-    }
-    '/_home': {
-      id: '/_home'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof HomeImport
-      parentRoute: typeof rootRoute
-    }
-    '/login': {
-      id: '/login'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof LoginImport
-      parentRoute: typeof rootRoute
-    }
-    '/_home/dashboard': {
-      id: '/_home/dashboard'
-      path: '/dashboard'
-      fullPath: '/dashboard'
-      preLoaderRoute: typeof HomeDashboardImport
-      parentRoute: typeof HomeImport
-    }
-<<<<<<< HEAD
-    '/_home/nurseStation': {
-      id: '/_home/nurseStation'
-      path: '/nurseStation'
-      fullPath: '/nurseStation'
-      preLoaderRoute: typeof HomeNurseStationImport
-=======
-    '/_home/message': {
-      id: '/_home/message'
-      path: '/message'
-      fullPath: '/message'
-      preLoaderRoute: typeof HomeMessageImport
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-      parentRoute: typeof HomeImport
-    }
-    '/_home/patient': {
-      id: '/_home/patient'
-      path: '/patient'
-      fullPath: '/patient'
-      preLoaderRoute: typeof HomePatientImport
-      parentRoute: typeof HomeImport
-    }
-    '/_home/personnel': {
-      id: '/_home/personnel'
-      path: '/personnel'
-      fullPath: '/personnel'
-      preLoaderRoute: typeof HomePersonnelImport
-      parentRoute: typeof HomeImport
-    }
-    '/_home/profil': {
-      id: '/_home/profil'
-      path: '/profil'
-      fullPath: '/profil'
-      preLoaderRoute: typeof HomeProfilImport
-      parentRoute: typeof HomeImport
-    }
-    '/_home/report': {
-      id: '/_home/report'
-      path: '/report'
-      fullPath: '/report'
-      preLoaderRoute: typeof HomeReportImport
-      parentRoute: typeof HomeImport
-    }
-    '/_home/service': {
-      id: '/_home/service'
-      path: '/service'
-      fullPath: '/service'
-      preLoaderRoute: typeof HomeServiceImport
-      parentRoute: typeof HomeImport
-    }
-    '/_home/setting': {
-      id: '/_home/setting'
-      path: '/setting'
-      fullPath: '/setting'
-      preLoaderRoute: typeof HomeSettingImport
-      parentRoute: typeof HomeImport
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_home": {
+      id: "/_home";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof HomeImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/login": {
+      id: "/login";
+      path: "/login";
+      fullPath: "/login";
+      preLoaderRoute: typeof LoginImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_home/dashboard": {
+      id: "/_home/dashboard";
+      path: "/dashboard";
+      fullPath: "/dashboard";
+      preLoaderRoute: typeof HomeDashboardImport;
+      parentRoute: typeof HomeImport;
+    };
+
+    "/_home/message": {
+      id: "/_home/message";
+      path: "/message";
+      fullPath: "/message";
+      preLoaderRoute: typeof HomeMessageImport;
+
+      parentRoute: typeof HomeImport;
+    };
+    "/_home/patient": {
+      id: "/_home/patient";
+      path: "/patient";
+      fullPath: "/patient";
+      preLoaderRoute: typeof HomePatientImport;
+      parentRoute: typeof HomeImport;
+    };
+    "/_home/personnel": {
+      id: "/_home/personnel";
+      path: "/personnel";
+      fullPath: "/personnel";
+      preLoaderRoute: typeof HomePersonnelImport;
+      parentRoute: typeof HomeImport;
+    };
+    "/_home/profil": {
+      id: "/_home/profil";
+      path: "/profil";
+      fullPath: "/profil";
+      preLoaderRoute: typeof HomeProfilImport;
+      parentRoute: typeof HomeImport;
+    };
+    "/_home/report": {
+      id: "/_home/report";
+      path: "/report";
+      fullPath: "/report";
+      preLoaderRoute: typeof HomeReportImport;
+      parentRoute: typeof HomeImport;
+    };
+    "/_home/service": {
+      id: "/_home/service";
+      path: "/service";
+      fullPath: "/service";
+      preLoaderRoute: typeof HomeServiceImport;
+      parentRoute: typeof HomeImport;
+    };
+    "/_home/setting": {
+      id: "/_home/setting";
+      path: "/setting";
+      fullPath: "/setting";
+      preLoaderRoute: typeof HomeSettingImport;
+      parentRoute: typeof HomeImport;
+    };
   }
 }
 
 // Create and export the route tree
 
 interface HomeRouteChildren {
-  HomeDashboardRoute: typeof HomeDashboardRoute
-<<<<<<< HEAD
-  HomeNurseStationRoute: typeof HomeNurseStationRoute
-=======
-  HomeMessageRoute: typeof HomeMessageRoute
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-  HomePatientRoute: typeof HomePatientRoute
-  HomePersonnelRoute: typeof HomePersonnelRoute
-  HomeProfilRoute: typeof HomeProfilRoute
-  HomeReportRoute: typeof HomeReportRoute
-  HomeServiceRoute: typeof HomeServiceRoute
-  HomeSettingRoute: typeof HomeSettingRoute
+  HomeDashboardRoute: typeof HomeDashboardRoute;
+  HomeMessageRoute: typeof HomeMessageRoute;
+  HomePatientRoute: typeof HomePatientRoute;
+  HomePersonnelRoute: typeof HomePersonnelRoute;
+  HomeProfilRoute: typeof HomeProfilRoute;
+  HomeReportRoute: typeof HomeReportRoute;
+  HomeServiceRoute: typeof HomeServiceRoute;
+  HomeSettingRoute: typeof HomeSettingRoute;
 }
 
 const HomeRouteChildren: HomeRouteChildren = {
   HomeDashboardRoute: HomeDashboardRoute,
-<<<<<<< HEAD
-  HomeNurseStationRoute: HomeNurseStationRoute,
-=======
+
   HomeMessageRoute: HomeMessageRoute,
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
+
   HomePatientRoute: HomePatientRoute,
   HomePersonnelRoute: HomePersonnelRoute,
   HomeProfilRoute: HomeProfilRoute,
   HomeReportRoute: HomeReportRoute,
   HomeServiceRoute: HomeServiceRoute,
   HomeSettingRoute: HomeSettingRoute,
-}
+};
 
-const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
+const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof HomeRouteWithChildren
-  '/login': typeof LoginRoute
-  '/dashboard': typeof HomeDashboardRoute
-<<<<<<< HEAD
-  '/nurseStation': typeof HomeNurseStationRoute
-=======
-  '/message': typeof HomeMessageRoute
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-  '/patient': typeof HomePatientRoute
-  '/personnel': typeof HomePersonnelRoute
-  '/profil': typeof HomeProfilRoute
-  '/report': typeof HomeReportRoute
-  '/service': typeof HomeServiceRoute
-  '/setting': typeof HomeSettingRoute
+  "/": typeof IndexRoute;
+  "": typeof HomeRouteWithChildren;
+  "/login": typeof LoginRoute;
+  "/dashboard": typeof HomeDashboardRoute;
+  "/message": typeof HomeMessageRoute;
+  "/patient": typeof HomePatientRoute;
+  "/personnel": typeof HomePersonnelRoute;
+  "/profil": typeof HomeProfilRoute;
+  "/report": typeof HomeReportRoute;
+  "/service": typeof HomeServiceRoute;
+  "/setting": typeof HomeSettingRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof HomeRouteWithChildren
-  '/login': typeof LoginRoute
-  '/dashboard': typeof HomeDashboardRoute
-<<<<<<< HEAD
-  '/nurseStation': typeof HomeNurseStationRoute
-=======
-  '/message': typeof HomeMessageRoute
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-  '/patient': typeof HomePatientRoute
-  '/personnel': typeof HomePersonnelRoute
-  '/profil': typeof HomeProfilRoute
-  '/report': typeof HomeReportRoute
-  '/service': typeof HomeServiceRoute
-  '/setting': typeof HomeSettingRoute
+  "/": typeof IndexRoute;
+  "": typeof HomeRouteWithChildren;
+  "/login": typeof LoginRoute;
+  "/dashboard": typeof HomeDashboardRoute;
+
+  "/message": typeof HomeMessageRoute;
+
+  "/patient": typeof HomePatientRoute;
+  "/personnel": typeof HomePersonnelRoute;
+  "/profil": typeof HomeProfilRoute;
+  "/report": typeof HomeReportRoute;
+  "/service": typeof HomeServiceRoute;
+  "/setting": typeof HomeSettingRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexRoute
-  '/_home': typeof HomeRouteWithChildren
-  '/login': typeof LoginRoute
-  '/_home/dashboard': typeof HomeDashboardRoute
-<<<<<<< HEAD
-  '/_home/nurseStation': typeof HomeNurseStationRoute
-=======
-  '/_home/message': typeof HomeMessageRoute
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-  '/_home/patient': typeof HomePatientRoute
-  '/_home/personnel': typeof HomePersonnelRoute
-  '/_home/profil': typeof HomeProfilRoute
-  '/_home/report': typeof HomeReportRoute
-  '/_home/service': typeof HomeServiceRoute
-  '/_home/setting': typeof HomeSettingRoute
+  __root__: typeof rootRoute;
+  "/": typeof IndexRoute;
+  "/_home": typeof HomeRouteWithChildren;
+  "/login": typeof LoginRoute;
+  "/_home/dashboard": typeof HomeDashboardRoute;
+  "/_home/patient": typeof HomePatientRoute;
+  "/_home/personnel": typeof HomePersonnelRoute;
+  "/_home/profil": typeof HomeProfilRoute;
+  "/_home/report": typeof HomeReportRoute;
+  "/_home/service": typeof HomeServiceRoute;
+  "/_home/setting": typeof HomeSettingRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | ''
-    | '/login'
-    | '/dashboard'
-<<<<<<< HEAD
-    | '/nurseStation'
-=======
-    | '/message'
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-    | '/patient'
-    | '/personnel'
-    | '/profil'
-    | '/report'
-    | '/service'
-    | '/setting'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | ""
+    | "/login"
+    | "/dashboard"
+    | "/message"
+    | "/patient"
+    | "/personnel"
+    | "/profil"
+    | "/report"
+    | "/service"
+    | "/setting";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | ''
-    | '/login'
-    | '/dashboard'
-<<<<<<< HEAD
-    | '/nurseStation'
-=======
-    | '/message'
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-    | '/patient'
-    | '/personnel'
-    | '/profil'
-    | '/report'
-    | '/service'
-    | '/setting'
+    | "/"
+    | ""
+    | "/login"
+    | "/dashboard"
+    | "/message"
+    | "/patient"
+    | "/personnel"
+    | "/profil"
+    | "/report"
+    | "/service"
+    | "/setting";
   id:
-    | '__root__'
-    | '/'
-    | '/_home'
-    | '/login'
-    | '/_home/dashboard'
-<<<<<<< HEAD
-    | '/_home/nurseStation'
-=======
-    | '/_home/message'
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
-    | '/_home/patient'
-    | '/_home/personnel'
-    | '/_home/profil'
-    | '/_home/report'
-    | '/_home/service'
-    | '/_home/setting'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/_home"
+    | "/login"
+    | "/_home/dashboard"
+    | "/_home/message"
+    | "/_home/patient"
+    | "/_home/personnel"
+    | "/_home/profil"
+    | "/_home/report"
+    | "/_home/service"
+    | "/_home/setting";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  HomeRoute: typeof HomeRouteWithChildren
-  LoginRoute: typeof LoginRoute
+  IndexRoute: typeof IndexRoute;
+  HomeRoute: typeof HomeRouteWithChildren;
+  LoginRoute: typeof LoginRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   HomeRoute: HomeRouteWithChildren,
   LoginRoute: LoginRoute,
-}
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -370,11 +326,7 @@ export const routeTree = rootRoute
       "filePath": "_home.tsx",
       "children": [
         "/_home/dashboard",
-<<<<<<< HEAD
-        "/_home/nurseStation",
-=======
         "/_home/message",
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
         "/_home/patient",
         "/_home/personnel",
         "/_home/profil",
@@ -390,13 +342,8 @@ export const routeTree = rootRoute
       "filePath": "_home/dashboard.tsx",
       "parent": "/_home"
     },
-<<<<<<< HEAD
-    "/_home/nurseStation": {
-      "filePath": "_home/nurseStation.tsx",
-=======
     "/_home/message": {
       "filePath": "_home/message.tsx",
->>>>>>> 00f0872017c34eb1d142ef242efd8b24e260a7fc
       "parent": "/_home"
     },
     "/_home/patient": {
